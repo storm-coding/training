@@ -16,6 +16,9 @@ public class ValidAnagram {
      *        3、遍历maps，如果maps中的value不为0，则返回false
      */
     public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
         Map<Character,Integer> maps = new HashMap<>();
         for(int i = 0; i < s.length(); i++) {
             if (maps.get(s.charAt(i)) == null) {
@@ -41,4 +44,32 @@ public class ValidAnagram {
         return true;
     }
 
+    /**
+     * 思路2: 思路和1一样，不过使用一个int类型的256数组表示字符串s中每个字符的出现次数
+     */
+    public boolean isAnagram1(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+
+        int[] sNums = new int[256];
+        for(int i = 0; i < s.length(); i++) {
+            sNums[s.charAt(i)]++;
+        }
+
+        for(int i = 0; i < t.length(); i++) {
+            sNums[t.charAt(i)]--;
+            if (sNums[t.charAt(i)] < 0) {
+                return false;
+            }
+        }
+
+        for (int nums : sNums) {
+            if (nums != 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
