@@ -17,8 +17,9 @@ import java.util.Set;
 public class HappyNumber {
 
     /**
-     * 题目意思： 编写一个函数判断给定一个数字是不是快乐数，快乐数指的是，这个数的每一位的乘积之和如果能等于一
-     * 思路： 将这个数的每一位相乘，如果最后乘积等于1，返回true，否则将这个数添加到set中，下次循环是判断这个乘积是不是在这个set中
+     * 题目意思： 编写一个函数判断给定一个数字是不是快乐数，快乐数指的是，这个数的每一位的乘积之和等于1、或者和的乘积重复上面步骤等于1
+     * 思路： 1、计算给定数每一位的乘积，之后判断是不是等于1或者在之前的计算和中出现过
+     *        2、都过都不符合上述条件，则重新进行上面步骤
      */
     public boolean isHappy(int n) {
         int[] productArr = new int[10];
@@ -35,12 +36,15 @@ public class HappyNumber {
 
         int products = 0;
         Set<Integer> set = new HashSet<>();
-        while (n > 1) {
+        while (true) {
             set.add(n);
             while (n > 0) {
                 int last = n % 10;
                 products += productArr[last];
                 n = n/10;
+            }
+            if (products == 1) {
+                return true;
             }
             if (set.contains(products)) {
                 return false;
@@ -49,12 +53,5 @@ public class HappyNumber {
             products = 0;
         }
 
-        if (n == 1) {
-            return true;
-        }
-        if (n == 0) {
-            return false;
-        }
-        return false;
     }
 }
