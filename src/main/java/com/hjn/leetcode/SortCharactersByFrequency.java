@@ -16,17 +16,13 @@ public class SortCharactersByFrequency {
     /**
      * 题目意思：给定一个字符串，按字符出现的频率进行降序排列
      *
-     * 思路： 1、使用map对每个字符进行统计
+     * 思路1： 1、使用map对每个字符进行统计
      *        2、使用冒泡思路对字符进行输出
      */
     public String frequencySort(String s) {
         Map<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {
-            if (map.get(s.charAt(i)) == null) {
-                map.put(s.charAt(i), 1);
-            } else {
-                map.put(s.charAt(i), map.get(s.charAt(i)) + 1);
-            }
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i),0) + 1);
         }
 
         String result = "";
@@ -50,24 +46,25 @@ public class SortCharactersByFrequency {
         return result;
     }
 
+    /**
+     *思路2： 在统计之后利用，TreeMap来进行排序输出
+     */
     public String frequencySort1(String s) {
         Map<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {
-            if (map.get(s.charAt(i)) == null) {
-                map.put(s.charAt(i), 1);
-            } else {
-                map.put(s.charAt(i), map.get(s.charAt(i)) + 1);
-            }
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i),0)+1);
         }
 
         StringBuilder result = new StringBuilder();
-        Map<Integer,Character> tMap = new TreeMap<>();
+        Map<Integer,String> tMap = new TreeMap<>();
         for(Map.Entry<Character,Integer> m : map.entrySet()) {
-            tMap.put(m.getValue(),m.getKey());
+            tMap.put(m.getValue(),tMap.getOrDefault(m.getValue(),"") + m.getKey());
         }
-        for(Map.Entry<Integer,Character> m : tMap.entrySet()) {
-            for(int i = 0; i<m.getKey();i++) {
-                result.append(m.getValue());
+        for(Map.Entry<Integer,String> m : tMap.entrySet()) {
+            for(char c : m.getValue().toCharArray()) {
+                for (int i = 0; i < m.getKey(); i++) {
+                    result.append(c);
+                }
             }
         }
 
