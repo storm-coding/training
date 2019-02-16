@@ -122,10 +122,4 @@ public class ThreeSum {
         return result;
     }
 
-    public static void main(String[] args) {
-        ThreeSum ts = new ThreeSum();
-        int[] nums = {3,0,-2,-1,1,2};
-        List<List<Integer>> l = ts.threeSum1(nums);
-        System.out.println(l.size());
-    }
 }
