@@ -27,30 +27,19 @@ public class ThreeSumClosest {
                 int sum = nums[i] + nums[left] + nums[right];
                 long tn = (sum - target) * (sum - target);
                 long tl = (targetClosest - target) * (targetClosest - target);
-                if (tn > tl) {
-                    if (sum < target) {
-                        left++;
-                    } else {
-                        right--;
-                    }
-                } else {
+                if (tn < tl) {
                     targetClosest = sum;
-                    if (sum < target) {
-                        left++;
-                    } else {
-                        right--;
-                    }
+                }
+                if (sum < target) {
+                    left++;
+                } else if (sum > target) {
+                    right--;
+                } else {
+                    return target;
                 }
             }
         }
-
         return targetClosest;
     }
 
-    public static void main(String[] args) {
-        ThreeSumClosest tsc = new ThreeSumClosest();
-        int[] nums = {1, 1, -1, -1, 3};
-        int ans = tsc.threeSumClosest(nums, -1);
-        System.out.println(ans);
-    }
 }
