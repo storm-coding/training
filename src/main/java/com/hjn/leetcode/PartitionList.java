@@ -15,53 +15,36 @@ public class PartitionList {
      * 思路：一、和题328一样
      *       二、1、首先找第一个大于等于x的节点，然后记录x的前面一个节点index。
      *           2、然后遇到下面比x小的数，追加到index后面
-     *           （头节点需要特殊处理）
      */
 
     public ListNode partition(ListNode head, int x) {
-        if (head == null || head.next == null) {
-            return head;
-        }
-        ListNode cur = head;
         ListNode index = null;
-        ListNode pre = null;
-        boolean isHead = false;
-        while (cur != null) {
-            if (cur.val >= x && index == null && !isHead) {
+        ListNode node = new ListNode(0);
+        node.next = head;
+        ListNode pre = node;
+
+        while (head != null) {
+            if (head.val >= x && index == null ) {
                 index = pre;
-                if (index == null) {
-                    isHead = true;
-                }
-                pre = cur;
-                cur = cur.next;
+                pre = head;
+                head = head.next;
                 continue;
             }
-            if (isHead && cur.val < x) {
-                isHead = false;
-//                pre = cur;
-                ListNode node = cur.next;
-                pre.next = cur.next;
-                cur.next = head;
-//                head.next = node;
-                head = cur;
-                index = cur;
-                cur = node;
-                continue;
-            }
-            if (cur.val < x && index != null) {
-                ListNode node = cur.next;
-                cur.next = index.next;
-                index.next = cur;
+
+            if (head.val < x && index != null) {
+                ListNode t = head.next;
+                head.next = index.next;
+                index.next = head;
                 index = index.next;
 
-                pre.next = node;
-                cur = node;
+                pre.next = t;
+                head = t;
                 continue;
             }
-            pre = cur;
-            cur = cur.next;
+            pre = head;
+            head = head.next;
         }
-        return head;
+        return node.next;
     }
 
     public static void main(String[] args) {
