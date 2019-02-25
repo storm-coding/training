@@ -17,6 +17,10 @@ public class LinkedUtils {
     }
 
     public static void  print(ListNode listNode) {
+        if(listNode == null) {
+            System.out.println("null");
+            return;
+        }
         ListNode pNode = listNode;
         while (pNode.next != null) {
             System.out.print(pNode.val + "-->");
