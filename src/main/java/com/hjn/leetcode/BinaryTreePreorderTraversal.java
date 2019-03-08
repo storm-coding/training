@@ -44,8 +44,8 @@ public class BinaryTreePreorderTraversal {
                 continue;
             }
             nodes.add(node.val);
-            stack.push(node.left);
             stack.push(node.right);
+            stack.push(node.left);
         }
 
         return nodes;
