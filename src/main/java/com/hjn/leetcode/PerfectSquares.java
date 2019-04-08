@@ -106,15 +106,34 @@ public class PerfectSquares {
         return 0;
     }
 
+    /**
+     * 自底向上，依次求解1-n的最优解
+     */
+    public int numSquares3(int n) {
+        int[] ans = new int[n + 1];
+        ans[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            for (int j = 1; j <= i; j++) {
+                int p = j*j;
+                if (i < p) {
+                    break;
+                }
+                if (i == p) {
+                    ans[i] = 1;
+                    continue;
+                }
+                if (ans[i] == 0) {
+                    ans[i] = ans[i - p] + 1;
+                } else {
+                    ans[i] = Math.min(ans[i], ans[i - p] + 1);
+                }
+            }
+        }
+        return ans[n];
+    }
+
     public static void main(String[] args) {
         PerfectSquares squares = new PerfectSquares();
-        long start = System.currentTimeMillis();
-        System.out.println(squares.numSquares2(8935));
-        System.out.println(System.currentTimeMillis() - start);
-
-        start = System.currentTimeMillis();
-        System.out.println(squares.numSquares1(8935));
-        System.out.println(System.currentTimeMillis() - start);
-
+        System.out.println(squares.numSquares3(13));
     }
 }
