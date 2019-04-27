@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class ContainsDuplicateII {
     /**
-     * 题目意思：给出一个整形数组和一个整数k,在数组中找出是否存在i,j使得nums[i]=nums[j],并且他们的绝对值之差不超过k
+     * 题目意思：给出一个整形数组和一个整数k,在数组中找出是否存在i,j使得nums[i]=nums[j],并且i,j的绝对值之差不超过k
      *
      * 思路1： 双重循环暴力解法，对每个遍历的当前节点，向后寻找k个数，查找是不是能找到和当前节点相等的数
      */
